@@ -19,6 +19,19 @@ const postsRouter = require("./routes/api/posts");
 
 var app = express();
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, X-Requested-With, Origin, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATH, PUT, DELETE, OPTIONS"
+  );
+  next();
+});
+
 //mongoose
 const mongoose = require("mongoose");
 mongoose

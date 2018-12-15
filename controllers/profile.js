@@ -5,7 +5,7 @@ const User = require("../models/UserSchema");
 const validateProfileInput = require("../validation/profile");
 const validateExperienceInput = require("../validation/experience");
 const validateEducationInput = require("../validation/education");
-
+ 
 module.exports.getProfile = (req, res, next) => {
   const errors = {};
 
