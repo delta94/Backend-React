@@ -5,12 +5,12 @@ const User = require("../models/UserSchema");
 
 // ma hoa thong tin user bang id
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.email);
 });
 
 // giai ma thong tin user qua id
-passport.deserializeUser((id, done) => {
-  User.find({ id })
+passport.deserializeUser((email, done) => {
+  User.findOne({ email })
     .then(user => done(null, user))
     .catch(err => done(null, false));
 });
@@ -27,18 +27,17 @@ passport.use(
       let getValue = profile._json;
       const email = getValue.emails[0].value;
       const name = getValue.displayName;
-      const id = getValue.id;
-      const imageURL = getValue.image.url;
-      User.findOne({ id })
+      const imageURL = getValue.image.url.split("?");
+      const avatar = imageURL[0] + `?sz=200`;
+      User.findOne({ email: email })
         .then(currentUser => {
           if (currentUser) {
-            //console.log(`User is: ${currentUser}`);
             done(null, currentUser);
           } else {
             new User({
               name: name,
               email: email,
-              avatar: imageURL
+              avatar: avatar
             }).save((err, user) => {
               if (err) {
                 done(null, false);
