@@ -23,21 +23,21 @@ const keys = require("./config/keys");
 const passportSetup = require("./config/passport-google");
 
 var app = express();
-// app.use(
-//   session({
-//     secret: keys.session.cookie,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       maxAge: 60 * 60 * 1000
-//     }
-//   })
-// );
+app.use(
+  session({
+    secret: keys.session.cookie,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60 * 60 * 1000
+    }
+  })
+);
 
 //passport
 app.use(passport.initialize());
 require("./config/passport")(passport);
-// app.use(passport.session());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

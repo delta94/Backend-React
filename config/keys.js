@@ -8,5 +8,9 @@ module.exports = {
   },
   session: {
     cookie: "ngominhduc"
+  },
+  facebook: {
+    clientID: "323505354901652",
+    clientSecret: "4fed5352aa06cc25d7b941dc9ec255b3"
   }
 };
