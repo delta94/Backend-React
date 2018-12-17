@@ -25,9 +25,7 @@ router.get(
 
     jwt.sign(payload, keys.secretOrKey, { expiresIn: "1h" }, (err, token) => {
       const tokenAuth = "Bearer " + token;
-      res.redirect(
-        "https://datfc97pro.github.io/deploy-react/login/" + tokenAuth
-      );
+      res.redirect("https://react-datngo97.netlify.com/login/" + tokenAuth);
     });
   }
 );
