@@ -76,7 +76,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.use("/api/users", userRouter);
@@ -84,14 +84,12 @@ app.use("/api/profile", profileRouter);
 app.use("/api/posts", postsRouter);
 app.use("/auth", authRouter);
 
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  app.use(express.static("build"));
+const appPath = path.join(__dirname, "build");
+app.use(express.static(appPath));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
+app.get("*", function(req, res) {
+  res.sendFile(path.resolve(appPath, "index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
